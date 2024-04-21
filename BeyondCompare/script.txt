@@ -1,0 +1,4 @@
+log normal "D:\work\BC-Log.txt"
+criteria binary
+file-report layout:side-by-side options:display-context,line-numbers,ignore-unimportant output-to:"%3" output-options:html-color "%1" "%2"
+file-report layout:summary options:display-context,line-numbers,ignore-unimportant output-to:"%4" output-options:html-color "%1" "%2"
