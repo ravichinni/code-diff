@@ -52,6 +52,23 @@ def run_bc_comparison(script_path, file1_path, file2_path, report_path, summary_
     """
     os.system(f'BCompare.exe "{script_path}" "{file1_path}" "{file2_path}" "{report_path}" "{summary_report_path}"')
 
+def extract_number_from_last_line(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+            last_line = lines[-1].strip()
+            number_at_beginning = ''
+            for char in last_line:
+                if char.isdigit():
+                    number_at_beginning += char
+                else:
+                    break
+            return int(number_at_beginning)
+    except FileNotFoundError:
+        print("File not found.")
+    except Exception as e:
+        print("An error occurred:", e)
+
 if __name__ == "__main__":
     # Specify Beyond Compare directory
     bc_path = r'C:\Program Files\Beyond Compare 4'
@@ -67,10 +84,11 @@ if __name__ == "__main__":
     file2_path = r'D:\Work\temp-right\pweaver#commercial_invoice_v2.ssfo.xml'
 
     # Note: @ character at the start of the script path is needed for BC
-    bcompare_script_path = r'@D:\Work\SAP\py\script.txt'
+    bcompare_script_path = r'@D:\Git-RaviChinni\code-diff\BeyondCompare\script.txt'
     comparison_report_path = r'D:\work\temp\comparison_report.html'
-    comparison_summary_report_path = r'D:\work\temp\comparison_report_summary.html'
+    comparison_summary_report_path = r'D:\work\temp\comparison_report_summary.txt'
 
     run_bc_comparison(bcompare_script_path, temp_file_path, file2_path, comparison_report_path, comparison_summary_report_path)
-
+    difference_count = extract_number_from_last_line(comparison_summary_report_path)
+    print("Number at the beginning of the last line:", difference_count)
 #TODO: Delete temp file after use
