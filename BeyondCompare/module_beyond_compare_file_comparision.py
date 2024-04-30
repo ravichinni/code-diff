@@ -69,26 +69,13 @@ def extract_number_from_last_line(file_path):
     except Exception as e:
         print("An error occurred:", e)
 
-if __name__ == "__main__":
-    # Specify Beyond Compare directory
-    bc_path = r'C:\Program Files\Beyond Compare 4'
-    
-    # Add Beyond Compare directory to the PATH
-    add_bc_to_path(bc_path)
-    
+def main_execute_bc_find_difference_count (bcompare_script_path, file1_path, file2_path, 
+                                           comparison_report_path, comparison_summary_report_path):
     # Replace "PWSS" with "PWEAVER" in File 1
-    file1_path = r'D:\Work\temp\pwss#commercial_invoice_v2.ssfo.xml'
     temp_file_path = replace_string_in_file(file1_path, 'PWSS', 'PWEAVER')
     
-    # Call Beyond Compare to perform the comparison
-    file2_path = r'D:\Work\temp-right\pweaver#commercial_invoice_v2.ssfo.xml'
-
-    # Note: @ character at the start of the script path is needed for BC
-    bcompare_script_path = r'@D:\Git-RaviChinni\code-diff\BeyondCompare\script.txt'
-    comparison_report_path = r'D:\work\temp\comparison_report.html'
-    comparison_summary_report_path = r'D:\work\temp\comparison_report_summary.txt'
-
     run_bc_comparison(bcompare_script_path, temp_file_path, file2_path, comparison_report_path, comparison_summary_report_path)
     difference_count = extract_number_from_last_line(comparison_summary_report_path)
-    print("Number at the beginning of the last line:", difference_count)
+    return difference_count
+
 #TODO: Delete temp file after use
